@@ -8,6 +8,8 @@ miFrame=Frame(raiz)
 
 miFrame.pack()
 
+operacion=""
+resultado=0
 #-----------------------------PANTALLA
 
 numeroPantalla=StringVar()
@@ -21,18 +23,54 @@ pantalla.config(background="black",fg="#03f943",justify="right")
 
 
 def numeroPulsado(numero):
-	
+	global operacion
 
-	numeroPantalla.set(numeroPantalla.get()+numero)
+	if operacion != "":
+
+		numeroPantalla.set(numero)
+		operacion=""
+
+	else:
+
+		numeroPantalla.set(numeroPantalla.get()+numero)
 
 
 #------------BORRAR------------------
 
 def Borrador():
-	
+
 	numeroPantalla.set("")
 
 
+#-----------OPERACIONES---------------------------
+
+def suma(numero):
+
+	global operacion
+
+	global resultado
+
+	resultado+=numero
+
+	operacion="suma"
+
+	numeroPantalla.set(resultado)
+
+def resta():
+	pass
+
+def division():
+	pass
+
+def multiplicacion():
+	pass
+
+def IGUAL():
+
+	global resultado
+
+	numeroPantalla.set(resultado+int(numeroPantalla.get()))
+	resultado=0
 #----------------FILA 1----------------------------
 
 boton9=Button(miFrame,text="9",width=3,command=lambda:numeroPulsado("9"))
@@ -84,10 +122,10 @@ boton0.grid(row=5,column=1)
 botonComa=Button(miFrame,text=",",width=3,command=lambda:numeroPulsado(","))
 botonComa.grid(row=5,column=2)
 
-botonIgual=Button(miFrame,text="=",width=3)
+botonIgual=Button(miFrame,text="=",width=3,command=lambda:IGUAL())
 botonIgual.grid(row=5,column=3)
 
-botonSuma=Button(miFrame,text="+",width=3)
+botonSuma=Button(miFrame,text="+",width=3, command=lambda:suma(int(numeroPantalla.get())))
 botonSuma.grid(row=5,column=4)
 
 #--------------FILA 5---------------------------
